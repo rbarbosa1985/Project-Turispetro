@@ -2,6 +2,7 @@ package br.gov.rj.petropolis.turispetro.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_phone")
@@ -22,16 +21,14 @@ public class Phone implements Serializable {
 	private Integer id;
 	private String phone;
 	
-	@JsonIgnore
-	@ManyToOne()
-	@JoinColumn(name = "establishment")
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "establishment_id")
 	private Establishment establishment;
 	
 	public Phone () {
 		
 	}
-
-	
 
 	public Phone(Integer id, String phone, Establishment establishment) {
 		this.id = id;

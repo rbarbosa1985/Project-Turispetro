@@ -1,25 +1,15 @@
-package br.gov.rj.petropolis.turispetro.model;
+package br.gov.rj.petropolis.turispetro.model.dto;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import br.gov.rj.petropolis.turispetro.model.Category;
+import br.gov.rj.petropolis.turispetro.model.Phone;
 
-@Entity
-@Table(name = "tb_establishment")
-public class Establishment implements Serializable {
+public class EstablishmentDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
 	private String street;
@@ -35,24 +25,16 @@ public class Establishment implements Serializable {
 	private String lat;
 	private String lon;
 	private Double avarage;
-	
-	@ManyToOne()
-	@JoinColumn(name = "category_id")
 	private Category category;  
+	private List<Phone> phone = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "establishment")
-	private Set<Phone> phone = new HashSet<>();
-	
-	public Establishment() {
+	public EstablishmentDTO() {
 		
 	}
 
-
-
-	public Establishment(Integer id, String name, String street, Integer number, String neighborhood, String city,
+	public EstablishmentDTO(Integer id, String name, String street, Integer number, String neighborhood, String city,
 			String state, String zip, String addon, String site, String email, Integer capacity, String lat, String lon,
-			Double avarage, Category category, Set<Phone> phone) {
-		
+			Double avarage, Category category, List<Phone> phone) {
 		this.id = id;
 		this.name = name;
 		this.street = street;
@@ -71,8 +53,6 @@ public class Establishment implements Serializable {
 		this.category = category;
 		this.phone = phone;
 	}
-
-
 
 	public Integer getId() {
 		return id;
@@ -202,10 +182,12 @@ public class Establishment implements Serializable {
 		this.category = category;
 	}
 
-
-
-	public Set<Phone> getPhone() {
+	public List<Phone> getPhone() {
 		return phone;
+	}
+
+	public void setPhone(List<Phone> phone) {
+		this.phone = phone;
 	}
 
 	@Override
@@ -224,7 +206,7 @@ public class Establishment implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Establishment other = (Establishment) obj;
+		EstablishmentDTO other = (EstablishmentDTO) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -234,6 +216,4 @@ public class Establishment implements Serializable {
 	}
 	
 	
-	
-
 }
